@@ -1,0 +1,5 @@
+.*.sw*
+/build/
+/missions/
+.venv
+/@cnto_missions/

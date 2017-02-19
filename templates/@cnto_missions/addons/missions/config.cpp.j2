@@ -1,0 +1,23 @@
+class CfgPatches
+{
+    class CNTO_Missions
+    {
+        units[] = {""};
+        weapons[] = {};
+        requiredAddons[]= {};
+    };
+};
+
+class CfgMissions
+{
+    class MPMissions
+    {
+{%- for mission in missions %}
+        class {{ mission.classname }}
+        {
+        {%- for key, value in mission.metadata.items() %}
+            {{ key }}={{ value }};
+        {%- endfor %}
+        };
+{% endfor %}    };
+};
