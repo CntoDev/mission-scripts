@@ -22,7 +22,7 @@ uploaded in the mod repository.
 
 * Tested for Linux. Windows usage is at your own risk.
 * depbo-tools 0.6.02 (https://dev.withsix.com/projects/mikero-pbodll/files)
-* Python 3, tested under 3.6, but 3.2+ should work.
+* Python 3, tested under 3.6, in production under 3.4, but 3.2+ should work.
 * Python libraries defined in `requirements.txt`
 
 ### Usage
