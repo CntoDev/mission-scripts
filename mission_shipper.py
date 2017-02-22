@@ -16,6 +16,7 @@ import logging
 import os
 import re
 import shutil
+import stat
 import subprocess
 
 import jinja2
@@ -59,11 +60,11 @@ def missions_context(missions_path):
     """
 
     missions = list()
-    for mission_dirent in os.scandir(missions_path):
-        if not mission_dirent.is_dir():
-            continue
-        mission_dir = mission_dirent.name
+    for mission_dir in os.listdir(missions_path):
         mission_path = os.path.join(missions_path, mission_dir)
+        statinfo = os.stat(mission_path)
+        if not stat.S_ISDIR(statinfo.st_mode):
+            continue
 
         # "Class name MUST match the name in the 'directory' path"
         # https://community.bistudio.com/wiki/CfgMissions#MPMissions
@@ -152,10 +153,11 @@ def main(template_path, missions_path, build_path, target_path):
     )
 
     # Populate the build directory with submitted missions
-    for mission_dirent in os.scandir(missions_path):
-        if not mission_dirent.is_dir():
+    for mission_dir in os.listdir(missions_path):
+        mission_path = os.path.join(missions_path, mission_dir)
+        statinfo = os.stat(mission_path)
+        if not stat.S_ISDIR(statinfo.st_mode):
             continue
-        mission_dir = mission_dirent.name
         shutil.copytree(
             os.path.join(missions_path, mission_dir),
             os.path.join(build_mod_path, MISSIONS_DIR_PATH, mission_dir),
