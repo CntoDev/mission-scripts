@@ -179,6 +179,7 @@ def main(template_path, missions_path, build_path, target_path):
     )
     logging.info("Generating missions.pbo")
     subprocess.check_call([
+        'valgrind',
         MAKEPBO_PATH,
         "-A",
         os.path.join(build_mod_path, 'addons/missions'),
